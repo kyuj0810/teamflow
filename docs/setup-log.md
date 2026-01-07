@@ -107,7 +107,20 @@ generator client {
 
 ---
 
-## 7. 데이터베이스 설계 포인트
+## 7. Database Schema Design
+
+![ERD](erd.png)
+
+### Design Decisions
+
+- **User – Team** 관계는 N:M 구조로, 중간 테이블 `TeamMember`를 사용
+- **WeeklyReport**는 `User`와 `Team`에 종속되어 팀 단위 보고 흐름을 표현
+- **Todo**는 개인 단위 작업이면서 보고서와 연결 가능
+- **Todo Hierarchy**를 위해 Self-relation 구조를 채택
+
+---
+
+## 8. 데이터베이스 설계 포인트
 
 ### 주요 도메인
 

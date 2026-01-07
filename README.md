@@ -35,6 +35,9 @@ B2B 협업 서비스입니다.
 - **Prisma ORM**
 - **OpenAI API** (예정)
 
+## Database Schema (ERD)
+
+![ERD](docs/erd.png)
 ---
 
 ## 🧱 Architecture
