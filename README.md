@@ -1,99 +1,84 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Teamflow
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+AI 기반 **주간보고 요약 & Todo 자동 생성** 협업 서비스 API
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## 📌 Overview
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+**Teamflow**는 팀원이 작성한 주간보고를 기반으로
 
-## Project setup
+- 팀장은 **AI 요약본**으로 팀 현황을 빠르게 파악하고
+- 팀원은 보고 내용에서 **Todo를 자동 생성**하여 업무를 관리할 수 있는
 
-```bash
-$ npm install
+B2B 협업 서비스입니다.
+
+본 프로젝트는 **중견기업 지원용 포트폴리오**를 목표로 설계 및 구현되었습니다.
+
+---
+
+## ✨ Features
+
+- 주간보고 작성 및 팀 단위 관리
+- AI 기반 주간보고 요약
+- 보고 내용 기반 Todo 자동 생성
+- Todo Sub-task (부모–자식 구조) 지원
+- 팀장 / 팀원(Role) 기반 권한 분리
+
+---
+
+## 🛠 Tech Stack
+
+- **Node.js** 20
+- **TypeScript**
+- **PostgreSQL** 15
+- **Prisma ORM**
+- **OpenAI API** (예정)
+
+---
+
+## 🧱 Architecture
+
+- REST API 기반 서버 구조
+- Role 기반 접근 제어 (MANAGER / MEMBER)
+- Prisma ORM을 활용한 명확한 도메인 모델링
+- Self-relation을 활용한 Todo 계층 구조 설계
+
+---
+
+## 📂 Project Structure
+
+```
+teamflow-api/
+ ├ prisma/
+ │  └ schema.prisma
+ ├ src/
+ ├ docs/
+ │  └ setup-log.md
+ ├ .env
+ └ README.md
 ```
 
-## Compile and run the project
+---
 
-```bash
-# development
-$ npm run start
+## 📄 Documentation
 
-# watch mode
-$ npm run start:dev
+- [Setup & Troubleshooting Log](docs/setup-log.md)
 
-# production mode
-$ npm run start:prod
-```
+> 환경 설정, Prisma 관련 트러블슈팅 및 기술 선택 과정은 위 문서에 정리되어 있습니다.
 
-## Run tests
+---
 
-```bash
-# unit tests
-$ npm run test
+## 🚀 Roadmap
 
-# e2e tests
-$ npm run test:e2e
+- [ ] 인증 (JWT 기반)
+- [ ] WeeklyReport CRUD API
+- [ ] AI 요약 기능 연동
+- [ ] 주간보고 → Todo 자동 생성 플로우
+- [ ] 팀장 / 팀원 권한 분기 API
 
-# test coverage
-$ npm run test:cov
-```
+---
 
-## Deployment
+## 👤 Author
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
-# teamflow
+**Yujin Kim**
