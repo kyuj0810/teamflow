@@ -1,7 +1,10 @@
-[ ] Prisma Client로 User / Team CRUD
+26.01.10
 
-1. Prisma Client 사용 준비
-2. 최소 CRUD API 1개 완성
-3. 인증(유저) 가짜로라도 붙이기
-4. WeeklyReport 실제 흐름 완성
-5. AI 요약 / Todo 확장
+- 서버, DB연결, 유저 생성 api 만들어봄!
+
+  26.01.11
+  🔹 백엔드
+
+- User API 완성도 올리기
+- 에러 처리
+- Validation
