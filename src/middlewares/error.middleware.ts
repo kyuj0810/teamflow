@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { ZodError } from 'zod';
+import { Prisma } from '@prisma/client';
 
 export const errorMiddleware = (
   err: unknown,
@@ -17,6 +18,16 @@ export const errorMiddleware = (
         message: issue.message,
       })),
     });
+  }
+
+  if (err instanceof Prisma.PrismaClientKnownRequestError) {
+    // 고유 제약 조건 위반
+    if (err.code === 'P2002') {
+      return res.status(409).json({
+        message: '이미 존재하는 Email 입니다.',
+        meta: err.meta,
+      });
+    }
   }
 
   // 알 수 없는 에러
