@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { ZodError } from 'zod';
 import { Prisma } from '@prisma/client';
+import { AppError } from 'src/errors/app-error';
 
 export const errorMiddleware = (
   err: unknown,
@@ -20,6 +21,14 @@ export const errorMiddleware = (
     });
   }
 
+  // 커스텀 에러
+  if (err instanceof AppError) {
+    return res.status(err.statusCode).json({
+      message: err.message,
+    });
+  }
+
+  // Prisma 에러
   if (err instanceof Prisma.PrismaClientKnownRequestError) {
     // 고유 제약 조건 위반
     if (err.code === 'P2002') {
@@ -32,6 +41,7 @@ export const errorMiddleware = (
 
   // 알 수 없는 에러
   console.error(err);
+
   return res.status(500).json({
     message: 'Internal server error',
   });
