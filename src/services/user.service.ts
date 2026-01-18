@@ -47,3 +47,15 @@ export const updateUserService = async (id: string, data: UpdateUserDto) => {
     data,
   });
 };
+
+export const getUserByIdService = async (id: string) => {
+  const user = await prisma.user.findUnique({
+    where: { id },
+  });
+
+  if (!user) {
+    throw new NotFoundError('존재하지 않는 사용자입니다.');
+  }
+
+  return user;
+};

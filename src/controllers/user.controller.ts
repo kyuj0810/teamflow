@@ -2,7 +2,11 @@ import { Request, Response } from 'express';
 import { createUserSchema } from '../dto/create-user.dto';
 import { updateUserSchema } from 'src/dto/update-user.dto';
 import { userIdParamSchema } from 'src/dto/user-params.dto';
-import { createUserService, updateUserService } from '../services/user.service';
+import {
+  createUserService,
+  updateUserService,
+  getUserByIdService,
+} from '../services/user.service';
 
 export const createUser = async (req: Request, res: Response) => {
   const body = createUserSchema.parse(req.body);
@@ -22,4 +26,11 @@ export const updateUser = async (req: Request, res: Response) => {
   const updatedUser = await updateUserService(id, body);
 
   res.json(updatedUser);
+};
+
+export const getUserById = async (req: Request, res: Response) => {
+  const { id } = userIdParamSchema.parse(req.params);
+  const user = await getUserByIdService(id);
+
+  res.json(user);
 };
