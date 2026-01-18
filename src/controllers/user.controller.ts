@@ -1,11 +1,13 @@
 import { Request, Response } from 'express';
 import { createUserSchema } from '../dto/create-user.dto';
 import { updateUserSchema } from 'src/dto/update-user.dto';
+import { getUserQuerySchema } from 'src/dto/get-users.query';
 import { userIdParamSchema } from 'src/dto/user-params.dto';
 import {
   createUserService,
   updateUserService,
   getUserByIdService,
+  getUserService,
 } from '../services/user.service';
 
 export const createUser = async (req: Request, res: Response) => {
@@ -33,4 +35,11 @@ export const getUserById = async (req: Request, res: Response) => {
   const user = await getUserByIdService(id);
 
   res.json(user);
+};
+
+export const getUsers = async (req: Request, res: Response) => {
+  const { page, limit } = getUserQuerySchema.parse(req.query);
+  const result = await getUserService(page, limit);
+
+  res.json({ result });
 };

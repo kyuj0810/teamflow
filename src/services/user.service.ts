@@ -59,3 +59,26 @@ export const getUserByIdService = async (id: string) => {
 
   return user;
 };
+
+export const getUserService = async (page: number, limit: number) => {
+  const skip = (page - 1) * limit;
+
+  const [users, total] = await prisma.$transaction([
+    prisma.user.findMany({
+      skip,
+      take: limit,
+      orderBy: { createdAt: 'desc' },
+    }),
+    prisma.user.count(),
+  ]);
+
+  return {
+    items: users,
+    pagination: {
+      page,
+      limit,
+      total,
+      totalPages: Math.ceil(total / limit),
+    },
+  };
+};
