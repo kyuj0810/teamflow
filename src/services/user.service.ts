@@ -4,7 +4,6 @@ import { UpdateUserDto } from '../dto/update-user.dto';
 import { BadRequestError } from 'src/errors/bad-request.error';
 import { NotFoundError } from 'src/errors/not-found.error';
 import { UserIdParamDto } from 'src/dto/user-params.dto';
-import th from 'zod/v4/locales/th.js';
 
 export const createUserService = async (data: CreateUserDto) => {
   // 생성할 필드가 하나도 없을 때

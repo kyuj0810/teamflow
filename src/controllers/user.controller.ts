@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { success } from '../utils/response';
+import { HTTP_STATUS } from 'src/constants/http-status';
 import { createUserSchema } from '../dto/create-user.dto';
 import { updateUserSchema } from 'src/dto/update-user.dto';
 import { getUserQuerySchema } from 'src/dto/get-users.query';
@@ -17,7 +18,7 @@ export const createUser = async (req: Request, res: Response) => {
   const body = createUserSchema.parse(req.body);
   const user = await createUserService(body);
 
-  return success(res, user);
+  return success(res, user, HTTP_STATUS.CREATED);
 };
 
 export const updateUser = async (req: Request, res: Response) => {
@@ -30,28 +31,28 @@ export const updateUser = async (req: Request, res: Response) => {
   // 3. 서비스 호출
   const updatedUser = await updateUserService(id, body);
 
-  return success(res, updatedUser);
+  return success(res, updatedUser, HTTP_STATUS.OK);
 };
 
 export const getUserById = async (req: Request, res: Response) => {
   const { id } = userIdParamSchema.parse(req.params);
   const user = await getUserByIdService(id);
 
-  return success(res, user);
+  return success(res, user, HTTP_STATUS.OK);
 };
 
 export const getUsers = async (req: Request, res: Response) => {
   const { page, limit } = getUserQuerySchema.parse(req.query);
   const result = await getUserService(page, limit);
 
-  return success(res, result);
+  return success(res, result, HTTP_STATUS.OK);
 };
 
 export const deleteUser = async (req: Request, res: Response) => {
   const { id } = userIdParamSchema.parse(req.params);
   const result = await deleteUserService({ id });
 
-  return success(res, result);
+  return success(res, result, HTTP_STATUS.NO_CONTENT);
 };
 
 export const restoreUser = async (req: Request, res: Response) => {
@@ -59,5 +60,5 @@ export const restoreUser = async (req: Request, res: Response) => {
 
   const user = await restoreUserService({ id });
 
-  return success(res, user);
+  return success(res, user, HTTP_STATUS.NO_CONTENT);
 };
