@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { success } from '../utils/response';
 import { createUserSchema } from '../dto/create-user.dto';
 import { updateUserSchema } from 'src/dto/update-user.dto';
 import { getUserQuerySchema } from 'src/dto/get-users.query';
@@ -8,13 +9,14 @@ import {
   updateUserService,
   getUserByIdService,
   getUserService,
+  deleteUserService,
 } from '../services/user.service';
 
 export const createUser = async (req: Request, res: Response) => {
   const body = createUserSchema.parse(req.body);
   const user = await createUserService(body);
 
-  res.status(201).json(user);
+  return success(res, user);
 };
 
 export const updateUser = async (req: Request, res: Response) => {
@@ -27,19 +29,26 @@ export const updateUser = async (req: Request, res: Response) => {
   // 3. 서비스 호출
   const updatedUser = await updateUserService(id, body);
 
-  res.json(updatedUser);
+  return success(res, updatedUser);
 };
 
 export const getUserById = async (req: Request, res: Response) => {
   const { id } = userIdParamSchema.parse(req.params);
   const user = await getUserByIdService(id);
 
-  res.json(user);
+  return success(res, user);
 };
 
 export const getUsers = async (req: Request, res: Response) => {
   const { page, limit } = getUserQuerySchema.parse(req.query);
   const result = await getUserService(page, limit);
 
-  res.json({ result });
+  return success(res, result);
+};
+
+export const deleteUser = async (req: Request, res: Response) => {
+  const { id } = userIdParamSchema.parse(req.params);
+  const result = await deleteUserService({ id });
+
+  return success(res, result);
 };
