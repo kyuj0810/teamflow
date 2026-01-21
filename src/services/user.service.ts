@@ -4,6 +4,7 @@ import { UpdateUserDto } from '../dto/update-user.dto';
 import { BadRequestError } from 'src/errors/bad-request.error';
 import { NotFoundError } from 'src/errors/not-found.error';
 import { UserIdParamDto } from 'src/dto/user-params.dto';
+import th from 'zod/v4/locales/th.js';
 
 export const createUserService = async (data: CreateUserDto) => {
   // 생성할 필드가 하나도 없을 때
@@ -100,4 +101,23 @@ export const deleteUserService = async (data: UserIdParamDto) => {
   });
 
   return { message: '사용자가 성공적으로 삭제되었습니다.' };
+};
+
+export const restoreUserService = async (data: UserIdParamDto) => {
+  const user = await prisma.user.findUnique({
+    where: { id: data.id },
+  });
+
+  if (!user) {
+    throw new NotFoundError('유저를 찾을 수 없습니다.');
+  }
+
+  if (user.deletedAt === null) {
+    throw new BadRequestError('이미 활성화된 유저입니다.');
+  }
+
+  return prisma.user.update({
+    where: { id: data.id },
+    data: { deletedAt: null },
+  });
 };

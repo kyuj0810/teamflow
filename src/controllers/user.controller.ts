@@ -10,6 +10,7 @@ import {
   getUserByIdService,
   getUserService,
   deleteUserService,
+  restoreUserService,
 } from '../services/user.service';
 
 export const createUser = async (req: Request, res: Response) => {
@@ -51,4 +52,12 @@ export const deleteUser = async (req: Request, res: Response) => {
   const result = await deleteUserService({ id });
 
   return success(res, result);
+};
+
+export const restoreUser = async (req: Request, res: Response) => {
+  const { id } = userIdParamSchema.parse(req.params);
+
+  const user = await restoreUserService({ id });
+
+  return success(res, user);
 };
