@@ -27,3 +27,6 @@ NOTE
 | Update | 200 | 변경 결과 바로 사용 |
 | Delete (Soft) | 204 | 결과 필요 없음 |
 | Restore | 200 or 204 | 정책 선택 |
+
+⚠️ 모든 데이터 삭제
+npx prisma migrate reset

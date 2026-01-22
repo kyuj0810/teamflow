@@ -62,3 +62,11 @@ export const restoreUser = async (req: Request, res: Response) => {
 
   return success(res, user, HTTP_STATUS.NO_CONTENT);
 };
+
+export const getUserProfile = async (req: Request, res: Response) => {
+  const userId = req.user?.id;
+
+  const user = await getUserByIdService(userId!);
+
+  return success(res, user, HTTP_STATUS.OK);
+};

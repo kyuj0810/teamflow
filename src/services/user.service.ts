@@ -1,4 +1,5 @@
 import { prisma } from '../lib/prisma';
+import bcrypt from 'bcrypt';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { BadRequestError } from 'src/errors/bad-request.error';
@@ -21,8 +22,14 @@ export const createUserService = async (data: CreateUserDto) => {
     }
   }
 
+  // 비밀번호 해싱
+  const hashedPassword = await bcrypt.hash(data.password, 10);
+
   return prisma.user.create({
-    data,
+    data: {
+      ...data,
+      password: hashedPassword,
+    },
   });
 };
 
