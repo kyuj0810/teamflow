@@ -30,6 +30,13 @@ export const createUserService = async (data: CreateUserDto) => {
       ...data,
       password: hashedPassword,
     },
+    select: {
+      id: true,
+      email: true,
+      name: true,
+      role: true,
+      createdAt: true,
+    },
   });
 };
 
@@ -53,12 +60,26 @@ export const updateUserService = async (id: string, data: UpdateUserDto) => {
   return prisma.user.update({
     where: { id },
     data,
+    select: {
+      id: true,
+      email: true,
+      name: true,
+      role: true,
+      updatedAt: true,
+    },
   });
 };
 
 export const getUserByIdService = async (id: string) => {
   const user = await prisma.user.findFirst({
     where: { id, deletedAt: null },
+    select: {
+      id: true,
+      email: true,
+      name: true,
+      role: true,
+      createdAt: true,
+    },
   });
 
   if (!user) {
@@ -77,6 +98,13 @@ export const getUserService = async (page: number, limit: number) => {
       take: limit,
       where: { deletedAt: null },
       orderBy: { createdAt: 'desc' },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        role: true,
+        createdAt: true,
+      },
     }),
     prisma.user.count(),
   ]);
