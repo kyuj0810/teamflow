@@ -84,3 +84,9 @@ Authorization 헤더 = 인증 정보 전달용
   | Custom Header | `X-Auth-Token` | 내부 API |
   | Query Param | `?token=` | ❌ 비추천 |
   👉 공개 API / 모바일 / SPA → Bearer가 정답
+
+4️⃣. CORS 에러
+
+- frontend 에서 api 호출하려고하니, 보안 정책에 걸림.
+  4.1 해결 방법
+- 패키지 설치) npm install cors

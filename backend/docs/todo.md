@@ -10,3 +10,5 @@ CHECKLIST [기본 USER CRUD]
 TODO
 [x]Auth (JWT)
 [ ] updateUserService 에서 password 해시처리 하기
+[x] backend CORS 설정
+[ ] 프론트 user 회원가입이랑 로그인 해보기
